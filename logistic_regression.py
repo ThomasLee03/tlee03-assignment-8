@@ -21,7 +21,7 @@ def generate_ellipsoid_clusters(distance, n_samples=100, cluster_std=0.5):
     X2 = np.random.multivariate_normal(mean=[1, 1], cov=covariance_matrix, size=n_samples)
     
     # Implement: Shift the second cluster along the x-axis and y-axis for a given distance
-    X2 += [distance, distance]
+    X2 += [distance, -1*distance]
     #raise NotImplementedError("Implement the shift of the second cluster")
     y2 = np.ones(n_samples)
 
@@ -145,7 +145,7 @@ def do_experiments(start, end, step_num):
 
     # Plot slope (beta1 / beta2)
     plt.subplot(3, 3, 4)
-    slope_values = [b1 / b2 for b1, b2 in zip(beta1_list, beta2_list)]
+    slope_values = [-(b1 / b2) for b1, b2 in zip(beta1_list, beta2_list)]
     plt.plot(shift_distances, slope_values, marker='o')
     plt.title("Shift Distance vs Slope (Beta1 / Beta2)")
     plt.xlabel("Shift Distance")
@@ -158,7 +158,7 @@ def do_experiments(start, end, step_num):
 
     # Plot intercept ratio (beta0 / beta2)
     plt.subplot(3, 3, 5)
-    intercept_values = [b0 / b2 for b0, b2 in zip(beta0_list, beta2_list)]
+    intercept_values = [-(b0 / b2) for b0, b2 in zip(beta0_list, beta2_list)]
     plt.plot(shift_distances, intercept_values, marker='o')
     plt.title("Shift Distance vs Intercept Ratio (Beta0 / Beta2)")
     plt.xlabel("Shift Distance")
